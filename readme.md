@@ -46,8 +46,6 @@ El proyecto está organizado de manera modular, con cada carpeta cumpliendo un r
 ├── data/                  # Datos crudos de ejemplo (no forma parte del pipeline)
 ├── dbt_profiles/          # Perfiles de conexión de dbt (profiles.yml)
 ├── logs/                  # Logs generados por Airflow
-├── secrets/               # Archivos de credenciales sensibles (montado como volumen en Docker)
-│   └── google-cloud-credenciales.json
 ├── src/                   # Módulos de Python para la lógica del pipeline
 │   ├── extraction/        # Scripts de extracción de datos
 │   ├── load/              # Scripts de carga de datos
