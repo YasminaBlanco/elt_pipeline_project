@@ -10,4 +10,4 @@ env/
 *.env
 .env/
 .env
-secrets/google-cloud-credenciales.json
+secrets
