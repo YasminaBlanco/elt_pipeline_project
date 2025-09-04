@@ -91,7 +91,7 @@ Tambien tenemos `dm_listings_by_host` que resume las métricas a nivel de anfitr
 Una vez que los modelos de dbt están listos, el Jupyter Notebook se convierte en la herramienta principal para la exploración y el análisis.
 
 * **Conexión y Consulta**: El notebook se conecta a la base de datos MySQL y ejecuta consultas SQL directamente sobre los modelos de Data Mart.
-(`view.ipynb`)[view.ipynb](graphics/view.ipynb) Usamos las librerías `pandas`, `seaborn` y `matplotlib` para generar gráficos que responden a preguntas de negocio como:
+(`view.ipynb`)[view.ipynb](ghapics/view.ipynb) Usamos las librerías `pandas`, `seaborn` y `matplotlib` para generar gráficos que responden a preguntas de negocio como:
 * **Visualización**: Usamos las librerías `pandas`, `seaborn` y `matplotlib` para generar gráficos que responden a preguntas de negocio como:
     * ¿Cuál es el precio promedio de los alojamientos por barrio y distrito?
         * ![Resultado](ghapics/img/precio_barrio_distrito.png)
