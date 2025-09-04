@@ -1,4 +1,12 @@
 __pycache__/
 .venv
 logs/
-.envsecrets/google-cloud-credenciales.json
+secrets/google-cloud-credenciales.json
+env/
+*.key
+*.pem
+*.crt
+.envrc
+*.env
+.env/
+.env
