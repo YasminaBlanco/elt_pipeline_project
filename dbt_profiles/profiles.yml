@@ -1,0 +1,12 @@
+nyc_data_warehouse:
+  outputs:
+    dev:
+      dbname: pipeline_db
+      host: 34.59.114.63
+      password: Yasmina01!
+      port: 3306
+      schema: pipeline_db
+      threads: 1
+      type: mysql
+      user: admin
+  target: dev

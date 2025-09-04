@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: dm_listings
+    description: "Tabla de hechos central que contiene todos los listados de Airbnb, enriquecidos con métricas clave y la información de la atracción más cercana. Es la base para análisis exploratorios y visualizaciones detalladas a nivel de listado individual."
+    columns:
+      - name: listing_id
+        description: "ID único del listado. Clave primaria."
+      - name: price_usd
+        description: "Precio del listado en dólares americanos."
+      - name: price_ars
+        description: "Precio del listado en pesos argentinos."
+      - name: estimated_annual_revenue
+        description: "Ingresos anuales estimados en dólares americanos."
+      - name: availability
+        description: "Días disponibles en el año."
+      - name: last_review_date
+        description: "Fecha de la última reseña. Utilizada para análisis de series de tiempo."
+      - name: distance_to_attraction
+        description: "Distancia euclidiana aproximada a la atracción más cercana."
+
+  - name: dm_listings_by_location
+    description: "Tabla de agregación que resume métricas clave (precios, disponibilidad, total de listados) a nivel de distrito, barrio y tipo de habitación. Ideal para análisis comparativos y dashboards de alto nivel."
+    columns:
+      - name: district
+        description: "Distrito de la ciudad."
+      - name: neighborhood
+        description: "Barrio específico."
+      - name: room_type
+        description: "Tipo de habitación."
+      - name: total_listings
+        description: "Total de listados activos en la ubicación y tipo de habitación."
+      - name: avg_price_usd
+        description: "Precio promedio de los listados en dólares americanos."
+      - name: avg_availability
+        description: "Disponibilidad anual promedio en la ubicación."
+
+  - name: dm_listings_by_host
+    description: "Tabla de agregación que resume las métricas a nivel de anfitrión, como el total de propiedades y la variación de precios. Útil para identificar anfitriones con múltiples listados."
+    columns:
+      - name: host_id
+        description: "ID del anfitrión."
+      - name: host_name
+        description: "Nombre del anfitrión."
+      - name: total_listings
+        description: "Número total de propiedades que el anfitrión tiene en la ciudad."
+      - name: avg_price_usd
+        description: "Precio promedio de las propiedades del anfitrión."
+      - name: max_price_usd
+        description: "Precio máximo de una propiedad del anfitrión."
+      - name: min_price_usd
+        description: "Precio mínimo de una propiedad del anfitrión."
+
+  - name: dm_listings_by_room_type
+    description: "Tabla que resume las métricas por tipo de habitación."
+    columns:
+      - name: room_type
+        description: "Tipo de habitación."
+      - name: total_listings
+        description: "Total de listados de este tipo de habitación."
+      - name: total_estimated_annual_revenue
+        description: "Revenue anual total estimado generado por este tipo de habitación."

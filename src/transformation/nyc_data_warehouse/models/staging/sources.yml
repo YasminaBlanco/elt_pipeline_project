@@ -1,0 +1,74 @@
+version: 2
+
+sources:
+  - name: pipeline
+    description: "Base de datos MySQL con datos de Airbnb Nyc"
+    database: pipeline_db
+    schema: pipeline_db
+    tables:
+      - name: nyc_raw
+        description: "Contiene datos de Airbnb Nyc"
+        schema: pipeline_db
+        columns:
+          - name: id
+            description: "Identificador único del registro"
+          - name: name
+            description: "Nombre"
+          - name: host_id
+            description: "Identificador único del anfitrión"
+          - name: host_name
+            description: "Nombre del anfitrión"
+          - name: neighbourhood_group
+            description: "Grupo de barrios"
+          - name: neighbourhood
+            description: "Barrio"
+          - name: latitude
+            description: "Latitud"
+          - name: longitude
+            description: "Longitud"
+          - name: room_type
+            description: "Tipo de habitación"
+          - name: price
+            description: "Precio"
+          - name: minimum_nights
+            description: "Número mínimo de noches"
+          - name: number_of_reviews
+            description: "Número de reseñas"
+          - name: last_review
+            description: "Fecha de la última reseña"
+          - name: reviews_per_month
+            description: "Número de reseñas por mes"
+          - name: calculated_host_listings_count
+            description: "Número de anfitriones que listan en el anuncio"
+          - name: availability_365
+            description: "Disponibilidad en 365 días"
+      - name: bcra_raw
+        description: "Contiene datos de la API de Bitcoin Cash Rate"
+        schema: public
+        columns:
+          - name: descripcion
+            description: "Descripción de la moneda"
+          - name: codigoMoneda
+            description: "Código de la moneda"
+          - name: tipoCotizacion
+            description: "Tipo de cotización"
+      - name: atracciones_raw
+        description: "Contiene datos de atracciones"
+        schema: public
+        columns:
+          - name: nombre
+            description: "Nombre de la atracción"
+          - name: url
+            description: "URL de la atracción"
+          - name: direccion
+            description: "Dirección de la atracción"
+      - name: museos_raw
+        description: "Contiene datos de museos"
+        schema: public
+        columns:
+          - name: nombre
+            description: "Nombre del museo"
+          - name: url
+            description: "URL del museo"
+          - name: direccion
+            description: "Dirección del museo"

@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # Servicio para inicializar la base de datos y crear el usuario de Airflow
+  airflow-init:
+    build: .
+    container_name: airflow_init
+    restart: "no"
+    env_file:
+      - .env
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=mysql://airflow_user:Yasmina01!@34.59.114.63:3306/airflow_db
+      - AIRFLOW__WEBSERVER__GUNICORN_TIMEOUT=300
+    command: >
+      bash -c "
+        airflow db init && \
+        airflow users create --username admin --firstname Admin --lastname User --role Admin --email admin@example.com --password admin
+      "
+
+  # Servicio para el servidor web de Airflow
+  airflow-webserver:
+    build: .
+    container_name: airflow_webserver
+    restart: always
+    ports:
+      - "8085:8080"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./src:/opt/airflow/src
+      - ./secrets:/opt/airflow/secrets
+      - ./data:/opt/airflow/data
+      - ./dbt_profiles:/opt/airflow/dbt_profiles
+      - ./logs:/opt/airflow/logs
+      - ./.env:/opt/airflow/.env
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - .env
+    environment:
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=${AIRFLOW__CORE__SQL_ALCHEMY_CONN}
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - PYTHONPATH=/opt/airflow
+      - AIRFLOW__WEBSERVER__GUNICORN_TIMEOUT=300
+      - GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/secrets/google-cloud-credenciales.json
+    command: webserver
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  # Servicio para el planificador de Airflow
+  airflow-scheduler:
+    build: .
+    container_name: airflow_scheduler
+    restart: always
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./src:/opt/airflow/src
+      - ./secrets:/opt/airflow/secrets
+      - ./data:/opt/airflow/data
+      - ./dbt_profiles:/opt/airflow/dbt_profiles
+      - ./logs:/opt/airflow/logs
+      - ./.env:/opt/airflow/.env
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - .env
+    environment:
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=${AIRFLOW__CORE__SQL_ALCHEMY_CONN}
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - PYTHONPATH=/opt/airflow
+      - AIRFLOW__WEBSERVER__GUNICORN_TIMEOUT=300
+      - GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/secrets/google-cloud-credenciales.json
+    command: scheduler
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
